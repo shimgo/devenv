@@ -1,0 +1,67 @@
+mysql:
+  container_name: mysql
+  hostname: mysql
+  restart: always
+  build: containers/mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: 'pass'
+  ports:
+    - '3306:3306'
+  volumes_from:
+    - datastore 
+
+rails:
+  container_name: rails
+  hostname: rails
+  restart: always
+  build: containers/rails
+  ports:
+    - '3000:3000'
+  environment:
+    RAILS_ENV: development
+    MYSQL_ROOT_PASSWORD: 'pass'
+    DATABASE_URL: mysql2://root:pass@mysql:3306
+    SECRET_KEY_BASE: hogehoge
+  volumes_from:
+    - datastore 
+  links:
+    - mysql
+
+dev:
+  container_name: dev
+  hostname: dev
+  restart: always
+  image: devenv
+  environment:
+    RAILS_ENV: development
+    SECRET_KEY_BASE: hogehoge
+  ports:
+    - '9292:9292'
+    - '3001:3000'
+  tty: true
+  volumes_from:
+    - datastore 
+  links:
+    - mysql
+    - rails
+
+nginx:
+  restart: always
+  container_name: nginx
+  hostname: nginx
+  build: containers/nginx
+  ports:
+    - '8080:80'
+  volumes_from:
+    - datastore 
+  links:
+    - rails
+
+datastore:
+  container_name: datastore
+  hostname: datastore
+  image: busybox
+  volumes:
+    - nginx_log:/var/www/hoge/log
+    - mysql_data:/var/lib/mysql
+    - projects:/home/developer/projects
