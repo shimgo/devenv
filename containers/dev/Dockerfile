@@ -19,6 +19,7 @@ RUN set -x \
         libyaml-devel \
         lua \
         lua-devel \
+        man \
         make \
         mysql-devel \
         ncurses-devel \
