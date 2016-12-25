@@ -1,4 +1,5 @@
 version: "2"
+
 services:
   nginx:
     volumes:
@@ -6,12 +7,10 @@ services:
   mysql:
     volumes:
       - mysql_root:/var/lib/mysql
-  dev:
-    volumes:
-      - dev_home:/home/developer
   fluentd:
     volumes:
       - fluentd_log:/var/log/fluent
+
 volumes:
   fluentd_log:
     external: true
@@ -19,6 +18,3 @@ volumes:
     external: true
   mysql_root:
     external: true
-  dev_home:
-    external: true
-

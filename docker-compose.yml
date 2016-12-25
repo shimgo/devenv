@@ -24,30 +24,6 @@ services:
       DATABASE_URL_TEST: mysql2://root:pass@mysql:3306
       DATABASE_URL_PRODUCTION: mysql2://root:pass@mysql:3306
       SECRET_KEY_BASE: hogehoge
-    links:
-      - mysql
-      - fluentd
-
-  dev:
-    container_name: dev
-    hostname: dev
-    restart: always
-    image: devenv
-    environment:
-      RAILS_ENV: development
-      MYSQL_ROOT_PASSWORD: 'pass'
-      DATABASE_URL_DEVELOPMENT: mysql2://root:pass@mysql:3306
-      DATABASE_URL_TEST: mysql2://root:pass@mysql:3306
-      DATABASE_URL_PRODUCTION: mysql2://root:pass@mysql:3306
-      SECRET_KEY_BASE: hogehoge
-    ports:
-      - '9292:9292'
-      - '3001:3000'
-    tty: true
-    links:
-      - mysql
-      - rails
-      - fluentd
 
   nginx:
     restart: always
@@ -56,8 +32,6 @@ services:
     build: containers/nginx
     ports:
       - '8080:80'
-    links:
-      - rails
 
   fluentd:
     tty: true
