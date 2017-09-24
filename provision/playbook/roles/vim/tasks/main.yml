@@ -1,0 +1,26 @@
+- name: ソースの取得
+  git:
+    repo: https://github.com/vim/vim.git
+    dest: /tmp/vim
+
+- name: configure
+  shell: |
+    ./configure \
+    --with-features=huge \
+    --enable-multibyte \
+    --enable-xim \
+    --enable-fontset \
+    --enable-perlinterp \
+    --enable-python3interp \
+    --with-python3-config-dir=/usr/lib64/python3.4/config-3.4m \
+    --enable-rubyinterp \
+    --enable-luainterp \
+    --enable-fail-if-missing \
+    --enable-pythoninterp \
+    --with-python-config-dir=/usr/lib64/python2.7/config
+  chdir: /tmp/vim
+
+- name: maek
+  make: 
+    chdir: /tmp/vim
+    target: install

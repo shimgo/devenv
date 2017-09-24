@@ -1,0 +1,4 @@
+- name: PhantomJSをインストール
+  yum:
+    name: phantomjs
+    state: latest

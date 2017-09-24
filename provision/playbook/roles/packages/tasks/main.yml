@@ -1,0 +1,54 @@
+- name: RPMリポジトリをインストール
+  yum:
+    name: "http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm"
+    state: present
+
+- name: 依存パッケージのインストール
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - curl-devel
+    - expat-devel
+    - gcc
+    - gcc-c++
+    - gettext-devel
+    - libffi-devel
+    - lua
+    - lua-devel
+    - mysql-devel
+    - openssl-devel
+    - openssl-devel
+    - perl
+    - perl-ExtUtils-CBuilder
+    - perl-ExtUtils-Embed
+    - perl-ExtUtils-MakeMaker
+    - perl-ExtUtils-ParseXS
+    - perl-devel
+    - python
+    - python-devel
+    - python34
+    - python34-devel
+    - readline-devel
+    - ruby-devel
+    - sqlite
+    - sqlite-devel
+    - unzip
+    - zlib-devel
+
+- name: pipのインストール確認
+  shell: which pip
+  register: pip_installed
+  check_mode: no
+  failed_when: pip_installed.rc not in [0, 1]
+  changed_when: pip_installed.rc != 0
+
+- name: get-pip.pyをダウンロード
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: /tmp
+  when: pip_installed|failed
+
+- name: pipをインストール
+  shell: python /tmp/get-pip.py
+  when: pip_installed|failed
