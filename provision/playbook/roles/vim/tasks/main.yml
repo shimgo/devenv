@@ -23,3 +23,15 @@
   make: 
     chdir: /tmp/vim
     target: install
+
+- name: dotfilesを取得
+  become: no
+  git:
+    repo: https://github.com/shimgo/dotfiles.git
+    dest: ~/dotfiles
+
+- name: dotfilesを配置
+  become: no
+  make: 
+    chdir: ~/dotfiles
+    target: deploy
