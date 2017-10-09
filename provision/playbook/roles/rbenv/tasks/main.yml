@@ -30,8 +30,8 @@
   register: purpose_version_installed
   failed_when: purpose_version_installed.rc not in [0, 1]
   changed_when: False
-
-- name: rbenvでrRubyをインストール
+  
+- name: rbenvでRubyをインストール
   shell: rbenv install -v {{ ruby_version }}
   become: no
   when: purpose_version_installed|failed
