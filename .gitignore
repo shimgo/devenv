@@ -1,6 +1,7 @@
 .DS_Store
 share/*
 !share/.gitkeep
+site.retry
 .vagrant
 /provision/playbook/**/vars/*
 
