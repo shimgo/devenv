@@ -20,3 +20,13 @@
     params: 
       prefix: /usr/local
   changed_when: false
+
+- name: Gitの設定変更
+  become: no
+  git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.val }}"
+    scope: global
+  with_items:
+    - { name: "user.name", val: "{{ user_name }}" }
+    - { name: "user.email", val: "{{ user_email }}" }

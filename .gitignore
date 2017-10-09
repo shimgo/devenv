@@ -2,3 +2,7 @@
 share/*
 !share/.gitkeep
 .vagrant
+/provision/playbook/**/vars/*
+
+# 空ディレクトリを登録可能にするための設定。必ず最終行に置くこと。
+!.gitkeep
