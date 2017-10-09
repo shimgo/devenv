@@ -35,3 +35,24 @@
   make: 
     chdir: ~/dotfiles
     target: deploy
+
+- name: neobundle用ディレクトリを作成
+  become: no
+  file:
+    path: ~/.vim/bundle
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: 755
+
+- name: neobundleを取得
+  become: no
+  git:
+    repo: https://github.com/Shougo/neobundle.vim
+    dest: ~/.vim/bundle/neobundle.vim
+
+- name: neobundleでプラグインをインストール
+  become: no
+  shell: ./neoinstall
+  args:
+    chdir: ~/.vim/bundle/neobundle.vim/bin
