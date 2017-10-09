@@ -28,5 +28,6 @@
     value: "{{ item.val }}"
     scope: global
   with_items:
-    - { name: "user.name", val: "{{ user_name }}" }
-    - { name: "user.email", val: "{{ user_email }}" }
+    - { name: "user.name",   val: "{{ user_name }}" }
+    - { name: "user.email",  val: "{{ user_email }}" }
+    - { name: "core.editor", val: "{{ editor }}" }
