@@ -1,0 +1,22 @@
+- name: zshのインストール
+  yum:
+    name: zsh
+    state: latest
+
+- name: ログインシェルの変更
+  user:
+    name: "{{ ansible_ssh_user }}"
+    shell: /usr/bin/zsh
+
+- name: powerline-statusのインストール
+  become: no
+  pip:
+    name: powerline-status
+    state: present
+    extra_args: --user
+
+- name: oh-may-zshのインストール
+  become: no
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: ~/.oh-my-zsh
