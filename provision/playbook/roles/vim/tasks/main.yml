@@ -19,7 +19,7 @@
   args:
     chdir: /tmp/vim
 
-- name: maek
+- name: インストール
   make: 
     chdir: /tmp/vim
     target: install
