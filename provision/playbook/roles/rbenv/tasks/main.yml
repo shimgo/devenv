@@ -24,6 +24,11 @@
     state: directory
     recurse: yes
 
+- name: rbenv-gem-rehashをインストール
+  git:
+    repo: https://github.com/sstephenson/rbenv-gem-rehash.git
+    dest: ~/.rbenv/plugins/rbenv-gem-rehash
+
 - name: 目的のバージョンがインストールされているか確認
   shell: rbenv versions | grep {{ ruby_version }}
   become: no
@@ -35,10 +40,6 @@
   shell: rbenv install -v {{ ruby_version }}
   become: no
   when: purpose_version_installed|failed
-
-- name: rehash
-  shell: rbenv rehash
-  become: no
 
 - name: rbenvでRubyのバージョンを切り替え
   shell: rbenv global {{ ruby_version }}
