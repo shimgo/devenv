@@ -22,6 +22,7 @@
     - phantomjs
     - docker-engine
     - rbenv
+    - ruby_reference
   tasks:
     - name: SELinuxの有効化
       selinux: state=enforcing policy=targeted

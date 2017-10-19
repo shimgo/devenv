@@ -1,0 +1,12 @@
+- name: refe2、bitclust-devをインストール
+  gem:
+    name: "{{ item }}"
+    executable: .rbenv/shims/gem
+    user_install: False
+  with_items:
+    - refe2
+
+- name: リファレンスデータベースを作成
+  become: no
+  shell: "bitclust setup --versions={{ item }}"
+  with_items: ruby_versions
